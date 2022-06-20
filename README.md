@@ -1,4 +1,4 @@
-# react-inner-image-zoom
+# zoom-loading-detector
 
 ![GitHub Actions][build-badge] [![npm package][npm-badge]][npm] [![TypeScript definitions on DefinitelyTyped][dt-badge]][dt]
 
@@ -6,16 +6,16 @@ A React component for magnifying an image within its original container. Zoom be
 
 ## Installation
 
-**Note:** Version 1.0.0 introduces React hooks and requires React v16.8.0 or above. To use this package with older versions of React, install with `npm install react-inner-image-zoom@1.0.0` or `yarn add react-inner-image-zoom@1.0.0` instead of the instructions below.
+**Note:** Version 1.0.0 introduces React hooks and requires React v16.8.0 or above. To use this package with older versions of React, install with `npm install zoom-loading-detector@1.0.0` or `yarn add zoom-loading-detector@1.0.0` instead of the instructions below.
 
 ### NPM
 ```
-npm install image-with-zoom-detector
+npm install zoom-loading-detector
 ```
 
 ### Yarn
 ```
-yarn add image-with-zoom-detector
+yarn add zoom-loading-detector
 ```
 
 ### TypeScript
@@ -23,43 +23,43 @@ yarn add image-with-zoom-detector
 For TypeScript users, type definitions are available through [DefinitelyTyped](https://definitelytyped.org/) and can be installed with:
 
 ```
-npm install --save-dev @types/image-with-zoom-detector
+npm install --save-dev @types/zoom-loading-detector
 ```
 
 ### Styling
 
 I was originally importing the CSS directly into the component but I've recently realized that makes too many assumptions about the wider build process. You can now download the raw CSS file at:
 
-[/src/InnerImageZoom/styles.css](https://raw.githubusercontent.com/laurenashpole/react-inner-image-zoom/master/src/InnerImageZoom/styles.css)
+[/src/InnerImageZoom/styles.css](https://raw.githubusercontent.com/laurenashpole/zoom-loading-detector/master/src/InnerImageZoom/styles.css)
 
 or the minified raw minified version at:
 
-[/src/InnerImageZoom/styles.min.css](https://raw.githubusercontent.com/laurenashpole/react-inner-image-zoom/master/src/InnerImageZoom/styles.min.css)
+[/src/InnerImageZoom/styles.min.css](https://raw.githubusercontent.com/laurenashpole/zoom-loading-detector/master/src/InnerImageZoom/styles.min.css)
 
 to include however you see fit. Or, if your setup supports it, import the files directory from your `node_modules` using:
 
 ```javascript
-import 'image-with-zoom-detector/lib/InnerImageZoom/styles.css';
+import 'zoom-loading-detector/lib/InnerImageZoom/styles.css';
 ```
 
 or:
 
 ```javascript
-import 'image-with-zoom-detector/lib/InnerImageZoom/styles.min.css';
+import 'zoom-loading-detector/lib/InnerImageZoom/styles.min.css';
 ```
 
 ## Usage
 
 Import and render the component:
 ```javascript
-import InnerImageZoom from 'image-with-zoom-detector';
+import InnerImageZoom from 'zoom-loading-detector';
 
 ...
 
 <InnerImageZoom src="/path/to/image.jpg" zoomSrc="/path/to/zoom-image.jpg" />
 ```
 
-This is the simplest usage. For additional examples, visit the [demo page](https://laurenashpole.github.io/react-inner-image-zoom).
+This is the simplest usage. For additional examples, visit the [demo page](https://laurenashpole.github.io/zoom-loading-detector).
 
 
 ## Props
