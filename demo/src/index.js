@@ -1,30 +1,30 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import InnerImageZoom from '../../src';
-import '../../src/InnerImageZoom/styles.css';
+import React, { Component } from "react";
+import { render } from "react-dom";
+import InnerImageZoom from "../../src";
+import "../../src/InnerImageZoom/styles.css";
 
 class Demo extends Component {
   render() {
     return (
       <div>
         <h1>react-inner-image-zoom Demo</h1>
-        <div style={{ marginBottom: '30px' }}>
+        <div style={{ marginBottom: "30px" }}>
           <h2>Pan Example</h2>
           <InnerImageZoom
             src="unsplash.jpg"
             zoomSrc="unsplash-large.jpg"
             fullscreenOnMobile={false}
             imgAttributes={{
-              src: 'test',
-              'data-key': 'value',
-              title: 'Title',
-              alt: '',
+              src: "test",
+              "data-key": "value",
+              title: "Title",
+              alt: "",
               height: 1000,
-              onLoad: () => console.log('Original image loaded')
+              onLoad: () => console.log("Original image loaded"),
             }}
           />
         </div>
-        <div style={{ marginBottom: '30px' }}>
+        <div style={{ marginBottom: "30px" }}>
           <h2>Hover Example</h2>
           <InnerImageZoom
             src="unsplash2.jpg"
@@ -37,7 +37,7 @@ class Demo extends Component {
             fullscreenOnMobile={true}
           />
         </div>
-        <div style={{ marginBottom: '30px' }}>
+        <div style={{ marginBottom: "30px" }}>
           <h2>Drag Example</h2>
           <InnerImageZoom
             src="unsplash3.jpg"
@@ -53,4 +53,4 @@ class Demo extends Component {
   }
 }
 
-render(<Demo />, document.querySelector('#demo'));
+render(<Demo />, document.querySelector("#demo"));

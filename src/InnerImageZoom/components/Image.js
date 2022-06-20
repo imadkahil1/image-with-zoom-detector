@@ -10,6 +10,7 @@ const Image = ({
   imgAttributes,
   isZoomed,
   fadeDuration,
+  onZoomImageLoad,
 }) => {
   const createSpacer = width && height && hasSpacer;
 
@@ -29,6 +30,7 @@ const Image = ({
 
           <img
             {...imgAttributes}
+            onLoad={onZoomImageLoad}
             className={`iiz__img ${imgAttributes.className || ""} ${
               isZoomed ? "iiz__img--hidden" : ""
             } ${createSpacer ? "iiz__img--abs" : ""}`}
@@ -47,6 +49,7 @@ const Image = ({
       ) : (
         <img
           {...imgAttributes}
+          onLoad={onZoomImageLoad}
           className={`iiz__img ${imgAttributes.className || ""} ${
             isZoomed ? "iiz__img--hidden" : ""
           } ${createSpacer ? "iiz__img--abs" : ""}`}

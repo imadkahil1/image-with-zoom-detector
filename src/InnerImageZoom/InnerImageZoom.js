@@ -1,12 +1,18 @@
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import Image from './components/Image';
-import ZoomImage from './components/ZoomImage';
-import FullscreenPortal from './components/FullscreenPortal';
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import PropTypes from "prop-types";
+import Image from "./components/Image";
+import ZoomImage from "./components/ZoomImage";
+import FullscreenPortal from "./components/FullscreenPortal";
 
 const InnerImageZoom = ({
-  moveType = 'pan',
-  zoomType = 'click',
+  moveType = "pan",
+  zoomType = "click",
   src,
   sources,
   width,
@@ -23,7 +29,9 @@ const InnerImageZoom = ({
   hideHint,
   className,
   afterZoomIn,
-  afterZoomOut
+  afterZoomOut,
+  onLoad,
+  onZoomImageLoad,
 }) => {
   const img = useRef(null);
   const zoomImg = useRef(null);
@@ -41,13 +49,13 @@ const InnerImageZoom = ({
 
   const handleMouseEnter = (e) => {
     setIsActive(true);
-    zoomType === 'hover' && !isZoomed && handleClick(e);
+    zoomType === "hover" && !isZoomed && handleClick(e);
   };
 
   const handleTouchStart = () => {
     setIsTouch(true);
     setIsFullscreen(getFullscreenStatus(fullscreenOnMobile, mobileBreakpoint));
-    setCurrentMoveType('drag');
+    setCurrentMoveType("drag");
   };
 
   const handleClick = (e) => {
@@ -72,15 +80,18 @@ const InnerImageZoom = ({
   };
 
   const handleLoad = (e) => {
+    onLoad(e);
     const scaledDimensions = getScaledDimensions(e.target, zoomScale);
-
     zoomImg.current = e.target;
-    zoomImg.current.setAttribute('width', scaledDimensions.width);
-    zoomImg.current.setAttribute('height', scaledDimensions.height);
+    zoomImg.current.setAttribute("width", scaledDimensions.width);
+    zoomImg.current.setAttribute("height", scaledDimensions.height);
 
     imgProps.current.scaledDimensions = scaledDimensions;
     imgProps.current.bounds = getBounds(img.current, false);
-    imgProps.current.ratios = getRatios(imgProps.current.bounds, scaledDimensions);
+    imgProps.current.ratios = getRatios(
+      imgProps.current.bounds,
+      scaledDimensions
+    );
 
     if (imgProps.current.onLoadCallback) {
       imgProps.current.onLoadCallback();
@@ -112,18 +123,30 @@ const InnerImageZoom = ({
     if (!isTouch) {
       imgProps.current.eventPosition = {
         x: e.pageX,
-        y: e.pageY
+        y: e.pageY,
       };
     }
   };
 
   const handleDragMove = useCallback((e) => {
     e.stopPropagation();
-    let left = (e.pageX || e.changedTouches[0].pageX) - imgProps.current.offsets.x;
-    let top = (e.pageY || e.changedTouches[0].pageY) - imgProps.current.offsets.y;
+    let left =
+      (e.pageX || e.changedTouches[0].pageX) - imgProps.current.offsets.x;
+    let top =
+      (e.pageY || e.changedTouches[0].pageY) - imgProps.current.offsets.y;
 
-    left = Math.max(Math.min(left, 0), (imgProps.current.scaledDimensions.width - imgProps.current.bounds.width) * -1);
-    top = Math.max(Math.min(top, 0), (imgProps.current.scaledDimensions.height - imgProps.current.bounds.height) * -1);
+    left = Math.max(
+      Math.min(left, 0),
+      (imgProps.current.scaledDimensions.width -
+        imgProps.current.bounds.width) *
+        -1
+    );
+    top = Math.max(
+      Math.min(top, 0),
+      (imgProps.current.scaledDimensions.height -
+        imgProps.current.bounds.height) *
+        -1
+    );
 
     setLeft(left);
     setTop(top);
@@ -140,7 +163,7 @@ const InnerImageZoom = ({
   };
 
   const handleMouseLeave = (e) => {
-    currentMoveType === 'drag' && isZoomed ? handleDragEnd(e) : handleClose();
+    currentMoveType === "drag" && isZoomed ? handleDragEnd(e) : handleClose();
   };
 
   const handleClose = () => {
@@ -154,7 +177,10 @@ const InnerImageZoom = ({
   };
 
   const handleFadeOut = (e, noTransition) => {
-    if (noTransition || (e.propertyName === 'opacity' && img.current.contains(e.target))) {
+    if (
+      noTransition ||
+      (e.propertyName === "opacity" && img.current.contains(e.target))
+    ) {
       if ((zoomPreload && isTouch) || !zoomPreload) {
         zoomImg.current = null;
         imgProps.current = getDefaults();
@@ -179,11 +205,23 @@ const InnerImageZoom = ({
   };
 
   const initialDrag = (pageX, pageY) => {
-    let initialPageX = (pageX - (window.pageXOffset + imgProps.current.bounds.left)) * -imgProps.current.ratios.x;
-    let initialPageY = (pageY - (window.pageYOffset + imgProps.current.bounds.top)) * -imgProps.current.ratios.y;
+    let initialPageX =
+      (pageX - (window.pageXOffset + imgProps.current.bounds.left)) *
+      -imgProps.current.ratios.x;
+    let initialPageY =
+      (pageY - (window.pageYOffset + imgProps.current.bounds.top)) *
+      -imgProps.current.ratios.y;
 
-    initialPageX = initialPageX + (isFullscreen ? (window.innerWidth - imgProps.current.bounds.width) / 2 : 0);
-    initialPageY = initialPageY + (isFullscreen ? (window.innerHeight - imgProps.current.bounds.height) / 2 : 0);
+    initialPageX =
+      initialPageX +
+      (isFullscreen
+        ? (window.innerWidth - imgProps.current.bounds.width) / 2
+        : 0);
+    initialPageY =
+      initialPageY +
+      (isFullscreen
+        ? (window.innerHeight - imgProps.current.bounds.height) / 2
+        : 0);
     imgProps.current.bounds = getBounds(img.current, isFullscreen);
     imgProps.current.offsets = getOffsets(0, 0, 0, 0);
 
@@ -191,17 +229,19 @@ const InnerImageZoom = ({
       changedTouches: [
         {
           pageX: initialPageX,
-          pageY: initialPageY
-        }
+          pageY: initialPageY,
+        },
       ],
       preventDefault: () => {},
-      stopPropagation: () => {}
+      stopPropagation: () => {},
     });
   };
 
   const zoomIn = (pageX, pageY) => {
     setIsZoomed(true);
-    currentMoveType === 'drag' ? initialDrag(pageX, pageY) : initialMove(pageX, pageY);
+    currentMoveType === "drag"
+      ? initialDrag(pageX, pageY)
+      : initialMove(pageX, pageY);
     afterZoomIn && afterZoomIn();
   };
 
@@ -217,7 +257,7 @@ const InnerImageZoom = ({
       offsets: {},
       ratios: {},
       eventPosition: {},
-      scaledDimensions: {}
+      scaledDimensions: {},
     };
   };
 
@@ -227,7 +267,7 @@ const InnerImageZoom = ({
         width: window.innerWidth,
         height: window.innerHeight,
         left: 0,
-        top: 0
+        top: 0,
       };
     }
 
@@ -237,25 +277,29 @@ const InnerImageZoom = ({
   const getOffsets = (pageX, pageY, left, top) => {
     return {
       x: pageX - left,
-      y: pageY - top
+      y: pageY - top,
     };
   };
 
   const getRatios = (bounds, dimensions) => {
     return {
       x: (dimensions.width - bounds.width) / bounds.width,
-      y: (dimensions.height - bounds.height) / bounds.height
+      y: (dimensions.height - bounds.height) / bounds.height,
     };
   };
 
   const getFullscreenStatus = (fullscreenOnMobile, mobileBreakpoint) => {
-    return fullscreenOnMobile && window.matchMedia && window.matchMedia(`(max-width: ${mobileBreakpoint}px)`).matches;
+    return (
+      fullscreenOnMobile &&
+      window.matchMedia &&
+      window.matchMedia(`(max-width: ${mobileBreakpoint}px)`).matches
+    );
   };
 
   const getScaledDimensions = (zoomImg, zoomScale) => {
     return {
       width: zoomImg.naturalWidth * zoomScale,
-      height: zoomImg.naturalHeight * zoomScale
+      height: zoomImg.naturalHeight * zoomScale,
     };
   };
 
@@ -266,10 +310,11 @@ const InnerImageZoom = ({
     left,
     isZoomed,
     onLoad: handleLoad,
-    onDragStart: currentMoveType === 'drag' ? handleDragStart : null,
-    onDragEnd: currentMoveType === 'drag' ? handleDragEnd : null,
-    onClose: !hideCloseButton && currentMoveType === 'drag' ? handleClose : null,
-    onFadeOut: isFading ? handleFadeOut : null
+    onDragStart: currentMoveType === "drag" ? handleDragStart : null,
+    onDragEnd: currentMoveType === "drag" ? handleDragEnd : null,
+    onClose:
+      !hideCloseButton && currentMoveType === "drag" ? handleClose : null,
+    onFadeOut: isFading ? handleFadeOut : null,
   };
 
   useEffect(() => {
@@ -277,7 +322,8 @@ const InnerImageZoom = ({
   }, []);
 
   useEffect(() => {
-    getFullscreenStatus(fullscreenOnMobile, mobileBreakpoint) && setIsActive(false);
+    getFullscreenStatus(fullscreenOnMobile, mobileBreakpoint) &&
+      setIsActive(false);
   }, [fullscreenOnMobile, mobileBreakpoint]);
 
   useEffect(() => {
@@ -285,10 +331,12 @@ const InnerImageZoom = ({
       return;
     }
 
-    const eventType = isTouch ? 'touchmove' : 'mousemove';
+    const eventType = isTouch ? "touchmove" : "mousemove";
 
     if (isDragging) {
-      zoomImg.current.addEventListener(eventType, handleDragMove, { passive: true });
+      zoomImg.current.addEventListener(eventType, handleDragMove, {
+        passive: true,
+      });
     } else {
       zoomImg.current.removeEventListener(eventType, handleDragMove);
     }
@@ -296,13 +344,17 @@ const InnerImageZoom = ({
 
   return (
     <figure
-      className={`iiz ${currentMoveType === 'drag' ? 'iiz--drag' : ''} ${className ? className : ''}`}
+      className={`iiz ${currentMoveType === "drag" ? "iiz--drag" : ""} ${
+        className ? className : ""
+      }`}
       style={{ width: width }}
       ref={img}
       onTouchStart={isZoomed ? null : handleTouchStart}
       onClick={handleClick}
       onMouseEnter={isTouch ? null : handleMouseEnter}
-      onMouseMove={currentMoveType === 'drag' || !isZoomed ? null : handleMouseMove}
+      onMouseMove={
+        currentMoveType === "drag" || !isZoomed ? null : handleMouseMove
+      }
       onMouseLeave={isTouch ? null : handleMouseLeave}
     >
       <Image
@@ -312,6 +364,7 @@ const InnerImageZoom = ({
         height={height}
         hasSpacer={hasSpacer}
         imgAttributes={imgAttributes}
+        onZoomImageLoad={onZoomImageLoad}
         fadeDuration={fadeDuration}
         isZoomed={isZoomed}
       />
@@ -352,7 +405,12 @@ InnerImageZoom.propTypes = {
   hideHint: PropTypes.bool,
   className: PropTypes.string,
   afterZoomIn: PropTypes.func,
-  afterZoomOut: PropTypes.func
+  afterZoomOut: PropTypes.func,
+  onLoad: PropTypes.func,
+};
+
+InnerImageZoom.defaultProps = {
+  onLoad: () => {},
 };
 
 export default InnerImageZoom;
