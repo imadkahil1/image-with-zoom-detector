@@ -1,7 +1,7 @@
-function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 var Image = function Image(_ref) {
   var src = _ref.src,
@@ -11,8 +11,7 @@ var Image = function Image(_ref) {
       hasSpacer = _ref.hasSpacer,
       imgAttributes = _ref.imgAttributes,
       isZoomed = _ref.isZoomed,
-      fadeDuration = _ref.fadeDuration,
-      onZoomImageLoad = _ref.onZoomImageLoad;
+      fadeDuration = _ref.fadeDuration;
   var createSpacer = width && height && hasSpacer;
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -23,8 +22,7 @@ var Image = function Image(_ref) {
       key: i
     }, source.srcSet && /*#__PURE__*/React.createElement("source", source));
   }), /*#__PURE__*/React.createElement("img", _extends({}, imgAttributes, {
-    onLoad: onZoomImageLoad,
-    className: "iiz__img " + (imgAttributes.className || "") + " " + (isZoomed ? "iiz__img--hidden" : "") + " " + (createSpacer ? "iiz__img--abs" : ""),
+    className: "iiz__img " + (imgAttributes.className || '') + " " + (isZoomed ? 'iiz__img--hidden' : '') + " " + (createSpacer ? 'iiz__img--abs' : ''),
     style: {
       transition: "linear 0ms opacity " + (isZoomed ? fadeDuration : 0) + "ms, linear " + fadeDuration + "ms visibility " + (isZoomed ? fadeDuration : 0) + "ms"
     },
@@ -32,8 +30,7 @@ var Image = function Image(_ref) {
     width: width,
     height: height
   }))) : /*#__PURE__*/React.createElement("img", _extends({}, imgAttributes, {
-    onLoad: onZoomImageLoad,
-    className: "iiz__img " + (imgAttributes.className || "") + " " + (isZoomed ? "iiz__img--hidden" : "") + " " + (createSpacer ? "iiz__img--abs" : ""),
+    className: "iiz__img " + (imgAttributes.className || '') + " " + (isZoomed ? 'iiz__img--hidden' : '') + " " + (createSpacer ? 'iiz__img--abs' : ''),
     style: {
       transition: "linear 0ms opacity " + (isZoomed ? fadeDuration : 0) + "ms, linear " + fadeDuration + "ms visibility " + (isZoomed ? fadeDuration : 0) + "ms"
     },

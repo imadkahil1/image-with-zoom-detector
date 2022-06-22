@@ -10,7 +10,6 @@ import Image from "./components/Image";
 import ZoomImage from "./components/ZoomImage";
 import FullscreenPortal from "./components/FullscreenPortal";
 import Sentry from "react-activity/dist/Sentry";
-import "./sentry.css";
 
 const InnerImageZoom = ({
   moveType = "pan",

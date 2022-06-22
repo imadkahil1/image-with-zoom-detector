@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 var ZoomImage = function ZoomImage(_ref) {
   var src = _ref.src,
@@ -13,14 +13,14 @@ var ZoomImage = function ZoomImage(_ref) {
       onClose = _ref.onClose,
       onFadeOut = _ref.onFadeOut;
   return /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement("img", {
-    onLoad: onLoad,
-    className: "iiz__zoom-img " + (isZoomed ? "iiz__zoom-img--visible" : ""),
+    className: "iiz__zoom-img " + (isZoomed ? 'iiz__zoom-img--visible' : ''),
     style: {
       top: top,
       left: left,
       transition: "linear " + fadeDuration + "ms opacity, linear " + fadeDuration + "ms visibility"
     },
     src: src,
+    onLoad: onLoad,
     onTouchStart: onDragStart,
     onTouchEnd: onDragEnd,
     onMouseDown: onDragStart,
@@ -29,7 +29,7 @@ var ZoomImage = function ZoomImage(_ref) {
     draggable: "false",
     alt: ""
   }), onClose && /*#__PURE__*/React.createElement("button", {
-    className: "iiz__btn iiz__close " + (isZoomed ? "iiz__close--visible" : ""),
+    className: "iiz__btn iiz__close " + (isZoomed ? 'iiz__close--visible' : ''),
     style: {
       transition: "linear " + fadeDuration + "ms opacity, linear " + fadeDuration + "ms visibility"
     },

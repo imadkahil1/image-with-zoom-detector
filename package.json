@@ -1,6 +1,6 @@
 {
   "name": "zoom-loading-detector",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A React component for magnifying an image within its original container.",
   "main": "lib/index.js",
   "module": "es/index.js",

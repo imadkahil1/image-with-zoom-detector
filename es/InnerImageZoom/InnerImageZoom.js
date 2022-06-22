@@ -1,10 +1,14 @@
 var _this = this;
 
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 import React, { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import Image from "./components/Image";
 import ZoomImage from "./components/ZoomImage";
 import FullscreenPortal from "./components/FullscreenPortal";
+import Sentry from "react-activity/dist/Sentry";
+import "./sentry.css";
 
 var InnerImageZoom = function InnerImageZoom(_ref) {
   var _ref$moveType = _ref.moveType,
@@ -32,8 +36,10 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
       className = _ref.className,
       afterZoomIn = _ref.afterZoomIn,
       afterZoomOut = _ref.afterZoomOut,
-      onLoad = _ref.onLoad,
-      onZoomImageLoad = _ref.onZoomImageLoad;
+      loaderColor = _ref.loaderColor,
+      loaderSize = _ref.loaderSize,
+      overrideLoadingContainerStyle = _ref.overrideLoadingContainerStyle,
+      overrideLoaderstyle = _ref.overrideLoaderstyle;
   var img = useRef(null);
   var zoomImg = useRef(null);
   var imgProps = useRef({});
@@ -83,11 +89,21 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
     zoomType === "hover" && !isZoomed && handleClick(e);
   };
 
+  useEffect(function () {
+    if (!isActive) {
+      setIsLoading(false);
+    }
+  }, [isActive]);
+
   var handleTouchStart = function handleTouchStart() {
     setIsTouch(true);
     setIsFullscreen(getFullscreenStatus(fullscreenOnMobile, mobileBreakpoint));
     setCurrentMoveType("drag");
   };
+
+  var _useState11 = useState(false),
+      isLoading = _useState11[0],
+      setIsLoading = _useState11[1];
 
   var handleClick = function handleClick(e) {
     if (isZoomed) {
@@ -106,14 +122,15 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
       handleLoad({
         target: zoomImg.current
       });
+      setIsLoading(false);
       zoomIn(e.pageX, e.pageY);
     } else {
+      setIsLoading(true);
       imgProps.current.onLoadCallback = zoomIn.bind(_this, e.pageX, e.pageY);
     }
   };
 
   var handleLoad = function handleLoad(e) {
-    onLoad(e);
     var scaledDimensions = getScaledDimensions(e.target, zoomScale);
     zoomImg.current = e.target;
     zoomImg.current.setAttribute("width", scaledDimensions.width);
@@ -125,6 +142,7 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
     if (imgProps.current.onLoadCallback) {
       imgProps.current.onLoadCallback();
       imgProps.current.onLoadCallback = null;
+      setIsLoading(false);
     }
   };
 
@@ -316,7 +334,7 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
       zoomImg.current.removeEventListener(eventType, handleDragMove);
     }
   }, [isDragging, isTouch, handleDragMove]);
-  return /*#__PURE__*/React.createElement("figure", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("figure", {
     className: "iiz " + (currentMoveType === "drag" ? "iiz--drag" : "") + " " + (className ? className : ""),
     style: {
       width: width
@@ -327,21 +345,45 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
     onMouseEnter: isTouch ? null : handleMouseEnter,
     onMouseMove: currentMoveType === "drag" || !isZoomed ? null : handleMouseMove,
     onMouseLeave: isTouch ? null : handleMouseLeave
-  }, /*#__PURE__*/React.createElement(Image, {
+  }, isLoading && /*#__PURE__*/React.createElement("div", {
+    style: _extends({}, styles.loaderContainer, overrideLoadingContainerStyle)
+  }, /*#__PURE__*/React.createElement(Sentry, {
+    color: loaderColor,
+    size: loaderSize,
+    style: _extends({}, styles.loader, overrideLoaderstyle)
+  })), /*#__PURE__*/React.createElement(Image, {
     src: src,
     sources: sources,
     width: width,
     height: height,
     hasSpacer: hasSpacer,
     imgAttributes: imgAttributes,
-    onZoomImageLoad: onZoomImageLoad,
     fadeDuration: fadeDuration,
     isZoomed: isZoomed
   }), isActive && /*#__PURE__*/React.createElement(Fragment, null, isFullscreen ? /*#__PURE__*/React.createElement(FullscreenPortal, null, /*#__PURE__*/React.createElement(ZoomImage, zoomImageProps)) : /*#__PURE__*/React.createElement(ZoomImage, zoomImageProps)), !hideHint && !isZoomed && /*#__PURE__*/React.createElement("span", {
     className: "iiz__btn iiz__hint"
-  }));
+  })));
 };
 
+var styles = {
+  loaderContainer: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.1)",
+    position: "absolute",
+    zIndex: 10,
+    flex: 1
+  },
+  loader: {
+    position: "absolute",
+    top: "45%",
+    left: "43%",
+    justifyContent: "center",
+    alignItems: "center"
+  }
+};
 InnerImageZoom.propTypes = process.env.NODE_ENV !== "production" ? {
   moveType: PropTypes.string,
   zoomType: PropTypes.string,
@@ -362,9 +404,15 @@ InnerImageZoom.propTypes = process.env.NODE_ENV !== "production" ? {
   className: PropTypes.string,
   afterZoomIn: PropTypes.func,
   afterZoomOut: PropTypes.func,
-  onLoad: PropTypes.func
+  loaderColor: PropTypes.string,
+  loaderSize: PropTypes.number,
+  overrideLoaderstyle: PropTypes.object,
+  overrideLoadingContainerStyle: PropTypes.object
 } : {};
 InnerImageZoom.defaultProps = {
-  onLoad: function onLoad() {}
+  loaderColor: "rgba(0,0,0,1)",
+  loaderSize: 30,
+  overrideLoaderstyle: {},
+  overrideLoadingContainerStyle: {}
 };
 export default InnerImageZoom;
