@@ -1,45 +1,26 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
-const Image = ({
-  src,
-  sources,
-  width,
-  height,
-  hasSpacer,
-  imgAttributes,
-  isZoomed,
-  fadeDuration,
-  onZoomImageLoad,
-}) => {
+const Image = ({ src, sources, width, height, hasSpacer, imgAttributes, isZoomed, fadeDuration }) => {
   const createSpacer = width && height && hasSpacer;
 
   return (
-    <div
-      style={{ paddingTop: createSpacer ? `${(height / width) * 100}%` : null }}
-    >
+    <div style={{ paddingTop: createSpacer ? `${(height / width) * 100}%` : null }}>
       {sources && sources.length > 0 ? (
         <picture>
           {sources.map((source, i) => {
-            return (
-              <Fragment key={i}>
-                {source.srcSet && <source {...source} />}
-              </Fragment>
-            );
+            return <Fragment key={i}>{source.srcSet && <source {...source} />}</Fragment>;
           })}
 
           <img
             {...imgAttributes}
-            onLoad={onZoomImageLoad}
-            className={`iiz__img ${imgAttributes.className || ""} ${
-              isZoomed ? "iiz__img--hidden" : ""
-            } ${createSpacer ? "iiz__img--abs" : ""}`}
+            className={`iiz__img ${imgAttributes.className || ''} ${isZoomed ? 'iiz__img--hidden' : ''} ${
+              createSpacer ? 'iiz__img--abs' : ''
+            }`}
             style={{
-              transition: `linear 0ms opacity ${
+              transition: `linear 0ms opacity ${isZoomed ? fadeDuration : 0}ms, linear ${fadeDuration}ms visibility ${
                 isZoomed ? fadeDuration : 0
-              }ms, linear ${fadeDuration}ms visibility ${
-                isZoomed ? fadeDuration : 0
-              }ms`,
+              }ms`
             }}
             src={src}
             width={width}
@@ -49,16 +30,13 @@ const Image = ({
       ) : (
         <img
           {...imgAttributes}
-          onLoad={onZoomImageLoad}
-          className={`iiz__img ${imgAttributes.className || ""} ${
-            isZoomed ? "iiz__img--hidden" : ""
-          } ${createSpacer ? "iiz__img--abs" : ""}`}
+          className={`iiz__img ${imgAttributes.className || ''} ${isZoomed ? 'iiz__img--hidden' : ''} ${
+            createSpacer ? 'iiz__img--abs' : ''
+          }`}
           style={{
-            transition: `linear 0ms opacity ${
+            transition: `linear 0ms opacity ${isZoomed ? fadeDuration : 0}ms, linear ${fadeDuration}ms visibility ${
               isZoomed ? fadeDuration : 0
-            }ms, linear ${fadeDuration}ms visibility ${
-              isZoomed ? fadeDuration : 0
-            }ms`,
+            }ms`
           }}
           src={src}
           width={width}
@@ -77,7 +55,7 @@ Image.propTypes = {
   hasSpacer: PropTypes.bool,
   imgAttributes: PropTypes.object,
   fadeDuration: PropTypes.number,
-  isZoomed: PropTypes.bool,
+  isZoomed: PropTypes.bool
 };
 
 export default Image;

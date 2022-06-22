@@ -11,8 +11,15 @@ class Demo extends Component {
         <div style={{ marginBottom: "30px" }}>
           <h2>Pan Example</h2>
           <InnerImageZoom
-            src="unsplash.jpg"
-            zoomSrc="unsplash-large.jpg"
+            onZoomImageLoad={(e) => {
+              console.log("onZoomImageLoad", e);
+            }}
+            onLoad={(e) => {
+              console.log("onLoad", e);
+            }}
+            src="https://teelaunch-2-dev.s3.us-west-2.amazonaws.com/accounts/3/products/100000006039/mockup-files/85133/product_with_blank_White_Mockup-thumb.png
+             "
+            zoomSrc="https://teelaunch-2-dev.s3.us-west-2.amazonaws.com/accounts/3/products/100000006039/mockup-files/85133/product_with_blank_White_Mockup.png"
             fullscreenOnMobile={false}
             imgAttributes={{
               src: "test",
