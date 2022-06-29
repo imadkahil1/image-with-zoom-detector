@@ -66,7 +66,7 @@ const Image = ({
         </picture>
       ) : (
         <>
-          {!isLoading && (
+          {isLoading && (
             <div
               style={{
                 ...styles.loaderContainer,
