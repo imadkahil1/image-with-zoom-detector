@@ -1,13 +1,10 @@
 var _this = this;
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
 import React, { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import Image from "./components/Image";
 import ZoomImage from "./components/ZoomImage";
 import FullscreenPortal from "./components/FullscreenPortal";
-import Sentry from "react-activity/dist/Sentry";
 
 var InnerImageZoom = function InnerImageZoom(_ref) {
   var _ref$moveType = _ref.moveType,
@@ -344,13 +341,12 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
     onMouseEnter: isTouch ? null : handleMouseEnter,
     onMouseMove: currentMoveType === "drag" || !isZoomed ? null : handleMouseMove,
     onMouseLeave: isTouch ? null : handleMouseLeave
-  }, isLoading && /*#__PURE__*/React.createElement("div", {
-    style: _extends({}, styles.loaderContainer, overrideLoadingContainerStyle)
-  }, /*#__PURE__*/React.createElement(Sentry, {
-    color: loaderColor,
-    size: loaderSize,
-    style: _extends({}, styles.loader, overrideLoaderstyle)
-  })), /*#__PURE__*/React.createElement(Image, {
+  }, /*#__PURE__*/React.createElement(Image, {
+    overrideLoaderstyle: overrideLoaderstyle,
+    overrideLoadingContainerStyle: overrideLoadingContainerStyle,
+    loaderColor: loaderColor,
+    loaderSize: loaderSize,
+    isLoading: isLoading,
     src: src,
     sources: sources,
     width: width,
@@ -364,24 +360,23 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
   })));
 };
 
-var styles = {
-  loaderContainer: {
-    height: "100%",
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "rgba(0,0,0,0.1)",
-    position: "absolute",
-    zIndex: 10,
-    flex: 1
-  },
-  loader: {
-    position: "absolute",
-    top: "45%",
-    left: "43%",
-    justifyContent: "center",
-    alignItems: "center"
-  }
+var styles = {// loaderContainer: {
+  //   // height: "100%",
+  //   // width: "100%",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   backgroundColor: "rgba(0,0,0,0.1)",
+  //   position: "absolute",
+  //   zIndex: 10,
+  //   flex: 1,
+  // },
+  // loader: {
+  //   position: "absolute",
+  //   // top: "45%",
+  //   // left: "43%",
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  // },
 };
 InnerImageZoom.propTypes = process.env.NODE_ENV !== "production" ? {
   moveType: PropTypes.string,
