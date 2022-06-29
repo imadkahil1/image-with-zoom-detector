@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 import Image from "./components/Image";
 import ZoomImage from "./components/ZoomImage";
 import FullscreenPortal from "./components/FullscreenPortal";
-import Sentry from "react-activity/dist/Sentry";
 
 const InnerImageZoom = ({
   moveType = "pan",
@@ -371,21 +370,10 @@ const InnerImageZoom = ({
         }
         onMouseLeave={isTouch ? null : handleMouseLeave}
       >
-        {isLoading && (
-          <div
-            style={{
-              ...styles.loaderContainer,
-              ...overrideLoadingContainerStyle,
-            }}
-          >
-            <Sentry
-              color={loaderColor}
-              size={loaderSize}
-              style={{ ...styles.loader, ...overrideLoaderstyle }}
-            />
-          </div>
-        )}
         <Image
+          loaderColor={loaderColor}
+          loaderSize={loaderSize}
+          isLoading={isLoading}
           src={src}
           sources={sources}
           width={width}
@@ -416,8 +404,8 @@ const InnerImageZoom = ({
 
 const styles = {
   loaderContainer: {
-    height: "100%",
-    width: "100%",
+    // height: "100%",
+    // width: "100%",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "rgba(0,0,0,0.1)",
@@ -427,8 +415,8 @@ const styles = {
   },
   loader: {
     position: "absolute",
-    top: "45%",
-    left: "43%",
+    // top: "45%",
+    // left: "43%",
     justifyContent: "center",
     alignItems: "center",
   },
