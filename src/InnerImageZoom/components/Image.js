@@ -1,6 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Sentry from "react-activity/dist/Sentry";
+import "../sentry.css";
 
 const Image = ({
   src,
@@ -15,12 +16,33 @@ const Image = ({
   overrideLoaderstyle,
   overrideLoadingContainerStyle,
   loaderColor,
-  loaderSize,
 }) => {
   const createSpacer = width && height && hasSpacer;
 
+  const ref = useRef(null);
+
+  const [heightt, setHeightt] = useState(0);
+  const [widthh, setWidth] = useState(0);
+
+  const getListSize = () => {
+    const newWidth = ref.current.clientWidth;
+    setWidth(newWidth);
+
+    const newHeight = ref.current.clientHeight;
+    setHeightt(newHeight);
+  };
+
+  useEffect(() => {
+    getListSize();
+  }, [ref.current]);
+
+  useEffect(() => {
+    window.addEventListener("resize", getListSize);
+  }, []);
+
   return (
     <div
+      ref={ref}
       style={{ paddingTop: createSpacer ? `${(height / width) * 100}%` : null }}
     >
       {sources && sources.length > 0 ? (
@@ -41,8 +63,13 @@ const Image = ({
             >
               <Sentry
                 color={loaderColor}
-                size={loaderSize}
-                style={{ ...styles.loader, ...overrideLoaderstyle }}
+                size={heightt / 16}
+                style={{
+                  ...styles.loader,
+                  top: heightt / 2.25,
+                  left: widthh / 2.25,
+                  ...overrideLoaderstyle,
+                }}
               />
             </div>
           )}
@@ -74,8 +101,13 @@ const Image = ({
             >
               <Sentry
                 color={loaderColor}
-                size={loaderSize}
-                style={{ ...styles.loader, ...overrideLoaderstyle }}
+                size={heightt / 16}
+                style={{
+                  ...styles.loader,
+                  top: heightt / 2.25,
+                  left: widthh / 2.25,
+                  ...overrideLoaderstyle,
+                }}
               />
             </div>
           )}
@@ -134,12 +166,10 @@ Image.propTypes = {
   overrideLoaderstyle: PropTypes.object,
   overrideLoadingContainerStyle: PropTypes.object,
   loaderColor: "rgba(0,0,0,1)",
-  loaderSize: 30,
 };
 
 Image.defaultProps = {
   loaderColor: "rgba(0,0,0,1)",
-  loaderSize: 30,
   overrideLoaderstyle: {},
   overrideLoadingContainerStyle: {},
 };
