@@ -1,7 +1,6 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Sentry from "react-activity/dist/Sentry";
-import "../sentry.css";
 
 const Image = ({
   src,
