@@ -28,7 +28,6 @@ const Image = ({
 
   const getListSize = () => {
     const newWidth = ref?.current?.clientWidth;
-    console.log(newWidth);
     setContainerWidth(newWidth);
 
     const newHeight = ref?.current?.clientHeight;
@@ -37,13 +36,13 @@ const Image = ({
 
   useEffect(() => {
     getListSize();
-  }, [ref?.current]);
+  }, [getListSize]);
 
   useEffect(() => {
     window.addEventListener("resize", getListSize, true);
-    // return () => {
-    //   window.removeEventListener("resize", getListSize);
-    // };
+    return () => {
+      window.removeEventListener("resize", getListSize);
+    };
   }, []);
 
   return (
