@@ -164,13 +164,7 @@ Image.propTypes = {
   isZoomed: PropTypes.bool,
   overrideLoaderstyle: PropTypes.object,
   overrideLoadingContainerStyle: PropTypes.object,
-  loaderColor: "rgba(0,0,0,1)",
-};
-
-Image.defaultProps = {
-  loaderColor: "rgba(0,0,0,1)",
-  overrideLoaderstyle: {},
-  overrideLoadingContainerStyle: {},
+  loaderColor: PropTypes.string,
 };
 
 export default Image;

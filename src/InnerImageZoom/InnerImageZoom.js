@@ -404,26 +404,6 @@ const InnerImageZoom = ({
   );
 };
 
-const styles = {
-  // loaderContainer: {
-  //   // height: "100%",
-  //   // width: "100%",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  //   backgroundColor: "rgba(0,0,0,0.1)",
-  //   position: "absolute",
-  //   zIndex: 10,
-  //   flex: 1,
-  // },
-  // loader: {
-  //   position: "absolute",
-  //   // top: "45%",
-  //   // left: "43%",
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  // },
-};
-
 InnerImageZoom.propTypes = {
   moveType: PropTypes.string,
   zoomType: PropTypes.string,
