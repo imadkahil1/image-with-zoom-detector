@@ -2,7 +2,8 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Sentry from "react-activity/dist/Sentry"; // import "react-activity/dist/Sentry.css";
+import Sentry from "react-activity/dist/Sentry";
+import "react-activity/dist/Sentry.css";
 
 var Image = function Image(_ref) {
   var src = _ref.src,
@@ -38,10 +39,9 @@ var Image = function Image(_ref) {
     getListSize();
   }, [ref === null || ref === void 0 ? void 0 : ref.current]);
   useEffect(function () {
-    window.addEventListener("resize", getListSize);
-    return function () {
-      window.removeEventListener("resize", getListSize);
-    };
+    window.addEventListener("resize", getListSize); // return () => {
+    //   window.removeEventListener("resize", getListSize);
+    // };
   }, []);
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,
