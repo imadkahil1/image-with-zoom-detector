@@ -16,33 +16,30 @@ var Image = function Image(_ref) {
       isLoading = _ref.isLoading,
       overrideLoaderstyle = _ref.overrideLoaderstyle,
       overrideLoadingContainerStyle = _ref.overrideLoadingContainerStyle,
-      loaderColor = _ref.loaderColor;
+      loaderColor = _ref.loaderColor,
+      setContainerWidth = _ref.setContainerWidth,
+      setContainerHeight = _ref.setContainerHeight,
+      containerHeight = _ref.containerHeight,
+      containerWidth = _ref.containerWidth,
+      loaderSize = _ref.loaderSize;
   var createSpacer = width && height && hasSpacer;
   var ref = useRef(null);
 
-  var _useState = useState(0),
-      heightt = _useState[0],
-      setHeightt = _useState[1];
-
-  var _useState2 = useState(0),
-      widthh = _useState2[0],
-      setWidth = _useState2[1];
-
   var getListSize = function getListSize() {
-    var newWidth = ref.current.clientWidth;
-    setWidth(newWidth);
-    var newHeight = ref.current.clientHeight;
-    setHeightt(newHeight);
+    var _ref$current, _ref$current2;
+
+    var newWidth = ref === null || ref === void 0 ? void 0 : (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.clientWidth;
+    setContainerWidth(newWidth);
+    var newHeight = ref === null || ref === void 0 ? void 0 : (_ref$current2 = ref.current) === null || _ref$current2 === void 0 ? void 0 : _ref$current2.clientHeight;
+    setContainerHeight(newHeight);
   };
 
   useEffect(function () {
     getListSize();
-  }, [ref.current]);
+  }, [ref === null || ref === void 0 ? void 0 : ref.current]);
   useEffect(function () {
     window.addEventListener("resize", getListSize);
   }, []);
-  console.log("height", heightt);
-  console.log("width", widthh);
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,
     style: {
@@ -56,10 +53,10 @@ var Image = function Image(_ref) {
     style: _extends({}, styles.loaderContainer, overrideLoadingContainerStyle)
   }, /*#__PURE__*/React.createElement(Sentry, {
     color: loaderColor,
-    size: heightt / 16,
+    size: loaderSize,
     style: _extends({}, styles.loader, {
-      top: heightt / 2.25,
-      left: widthh / 2.25
+      top: containerHeight / 2.25,
+      left: containerWidth / 2.25
     }, overrideLoaderstyle)
   })), /*#__PURE__*/React.createElement("img", _extends({}, imgAttributes, {
     className: "iiz__img " + (imgAttributes.className || "") + " " + (isZoomed ? "iiz__img--hidden" : "") + " " + (createSpacer ? "iiz__img--abs" : ""),
@@ -73,10 +70,10 @@ var Image = function Image(_ref) {
     style: _extends({}, styles.loaderContainer, overrideLoadingContainerStyle)
   }, /*#__PURE__*/React.createElement(Sentry, {
     color: loaderColor,
-    size: heightt / 16,
+    size: loaderSize,
     style: _extends({}, styles.loader, {
-      top: heightt / 2.25,
-      left: widthh / 2.25
+      top: containerHeight / 2.25,
+      left: containerWidth / 2.25
     }, overrideLoaderstyle)
   })), /*#__PURE__*/React.createElement("img", _extends({}, imgAttributes, {
     className: "iiz__img " + (imgAttributes.className || "") + " " + (isZoomed ? "iiz__img--hidden" : "") + " " + (createSpacer ? "iiz__img--abs" : ""),
@@ -120,6 +117,11 @@ Image.propTypes = process.env.NODE_ENV !== "production" ? {
   isZoomed: PropTypes.bool,
   overrideLoaderstyle: PropTypes.object,
   overrideLoadingContainerStyle: PropTypes.object,
-  loaderColor: PropTypes.string
+  loaderColor: PropTypes.string,
+  setContainerWidth: PropTypes.func,
+  setContainerHeight: PropTypes.func,
+  containerHeight: PropTypes.number,
+  containerWidth: PropTypes.number,
+  loaderSize: PropTypes.number
 } : {};
 export default Image;

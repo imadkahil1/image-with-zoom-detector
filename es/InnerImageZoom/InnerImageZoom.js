@@ -35,7 +35,11 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
       loaderColor = _ref.loaderColor,
       loaderSize = _ref.loaderSize,
       overrideLoadingContainerStyle = _ref.overrideLoadingContainerStyle,
-      overrideLoaderstyle = _ref.overrideLoaderstyle;
+      overrideLoaderstyle = _ref.overrideLoaderstyle,
+      setContainerWidth = _ref.setContainerWidth,
+      setContainerHeight = _ref.setContainerHeight,
+      containerHeight = _ref.containerHeight,
+      containerWidth = _ref.containerWidth;
   var img = useRef(null);
   var zoomImg = useRef(null);
   var imgProps = useRef({});
@@ -354,7 +358,11 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
     hasSpacer: hasSpacer,
     imgAttributes: imgAttributes,
     fadeDuration: fadeDuration,
-    isZoomed: isZoomed
+    isZoomed: isZoomed,
+    containerHeight: containerHeight,
+    containerWidth: containerWidth,
+    setContainerWidth: setContainerWidth,
+    setContainerHeight: setContainerHeight
   }), isActive && /*#__PURE__*/React.createElement(Fragment, null, isFullscreen ? /*#__PURE__*/React.createElement(FullscreenPortal, null, /*#__PURE__*/React.createElement(ZoomImage, zoomImageProps)) : /*#__PURE__*/React.createElement(ZoomImage, zoomImageProps)), !hideHint && !isZoomed && /*#__PURE__*/React.createElement("span", {
     className: "iiz__btn iiz__hint"
   })));
@@ -383,12 +391,18 @@ InnerImageZoom.propTypes = process.env.NODE_ENV !== "production" ? {
   loaderColor: PropTypes.string,
   loaderSize: PropTypes.number,
   overrideLoaderstyle: PropTypes.object,
-  overrideLoadingContainerStyle: PropTypes.object
+  overrideLoadingContainerStyle: PropTypes.object,
+  setContainerWidth: PropTypes.func,
+  setContainerHeight: PropTypes.func,
+  containerHeight: PropTypes.number,
+  containerWidth: PropTypes.number
 } : {};
 InnerImageZoom.defaultProps = {
   loaderColor: "rgba(0,0,0,1)",
   loaderSize: 30,
   overrideLoaderstyle: {},
-  overrideLoadingContainerStyle: {}
+  overrideLoadingContainerStyle: {},
+  setContainerWidth: function setContainerWidth() {},
+  setContainerHeight: function setContainerHeight() {}
 };
 export default InnerImageZoom;

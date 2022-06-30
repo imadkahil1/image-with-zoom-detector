@@ -56,7 +56,7 @@ const Image = ({
               </Fragment>
             );
           })}
-          {!isLoading && (
+          {isLoading && (
             <div
               style={{
                 ...styles.loaderContainer,
@@ -94,7 +94,7 @@ const Image = ({
         </picture>
       ) : (
         <>
-          {!isLoading && (
+          {isLoading && (
             <div
               style={{
                 ...styles.loaderContainer,
