@@ -3,6 +3,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Sentry from "react-activity/dist/Sentry";
+import "react-activity/dist/Sentry.css";
 
 var Image = function Image(_ref) {
   var src = _ref.src,
@@ -41,6 +42,8 @@ var Image = function Image(_ref) {
   useEffect(function () {
     window.addEventListener("resize", getListSize);
   }, []);
+  console.log("height", heightt);
+  console.log("width", widthh);
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,
     style: {
@@ -50,7 +53,7 @@ var Image = function Image(_ref) {
     return /*#__PURE__*/React.createElement(Fragment, {
       key: i
     }, source.srcSet && /*#__PURE__*/React.createElement("source", source));
-  }), isLoading && /*#__PURE__*/React.createElement("div", {
+  }), !isLoading && /*#__PURE__*/React.createElement("div", {
     style: _extends({}, styles.loaderContainer, overrideLoadingContainerStyle)
   }, /*#__PURE__*/React.createElement(Sentry, {
     color: loaderColor,
@@ -67,7 +70,7 @@ var Image = function Image(_ref) {
     src: src,
     width: width,
     height: height
-  }))) : /*#__PURE__*/React.createElement(React.Fragment, null, isLoading && /*#__PURE__*/React.createElement("div", {
+  }))) : /*#__PURE__*/React.createElement(React.Fragment, null, !isLoading && /*#__PURE__*/React.createElement("div", {
     style: _extends({}, styles.loaderContainer, overrideLoadingContainerStyle)
   }, /*#__PURE__*/React.createElement(Sentry, {
     color: loaderColor,
