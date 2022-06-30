@@ -29,7 +29,6 @@ var Image = function Image(_ref) {
     var _ref$current, _ref$current2;
 
     var newWidth = ref === null || ref === void 0 ? void 0 : (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.clientWidth;
-    console.log(newWidth);
     setContainerWidth(newWidth);
     var newHeight = ref === null || ref === void 0 ? void 0 : (_ref$current2 = ref.current) === null || _ref$current2 === void 0 ? void 0 : _ref$current2.clientHeight;
     setContainerHeight(newHeight);
@@ -37,11 +36,12 @@ var Image = function Image(_ref) {
 
   useEffect(function () {
     getListSize();
-  }, [ref === null || ref === void 0 ? void 0 : ref.current]);
+  }, [getListSize]);
   useEffect(function () {
-    window.addEventListener("resize", getListSize, true); // return () => {
-    //   window.removeEventListener("resize", getListSize);
-    // };
+    window.addEventListener("resize", getListSize, true);
+    return function () {
+      window.removeEventListener("resize", getListSize);
+    };
   }, []);
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,

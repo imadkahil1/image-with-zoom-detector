@@ -35,11 +35,15 @@ const Image = ({
   };
 
   useEffect(() => {
+    let cancel = false;
     getListSize();
+    return () => {
+      cancel = true;
+    };
   }, [getListSize]);
 
   useEffect(() => {
-    window.addEventListener("resize", getListSize, true);
+    window.addEventListener("resize", getListSize);
     return () => {
       window.removeEventListener("resize", getListSize);
     };
