@@ -44,6 +44,9 @@ const Image = ({
 
   useEffect(() => {
     window.addEventListener("resize", getListSize);
+    return () => {
+      window.removeEventListener("resize", getListSize);
+    };
   }, []);
 
   return (

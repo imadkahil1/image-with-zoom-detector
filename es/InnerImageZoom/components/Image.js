@@ -36,6 +36,10 @@ var Image = function Image(_ref) {
 
   useEffect(function () {
     getListSize();
+    return function () {
+      setContainerHeight();
+      setContainerWidth();
+    };
   }, [ref === null || ref === void 0 ? void 0 : ref.current]);
   useEffect(function () {
     window.addEventListener("resize", getListSize);
