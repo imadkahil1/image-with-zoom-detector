@@ -34,6 +34,10 @@ const InnerImageZoom = ({
   loaderSize,
   overrideLoadingContainerStyle,
   overrideLoaderstyle,
+  setContainerWidth,
+  setContainerHeight,
+  containerHeight,
+  containerWidth,
 }) => {
   const img = useRef(null);
   const zoomImg = useRef(null);
@@ -384,6 +388,10 @@ const InnerImageZoom = ({
           imgAttributes={imgAttributes}
           fadeDuration={fadeDuration}
           isZoomed={isZoomed}
+          containerHeight={containerHeight}
+          containerWidth={containerWidth}
+          setContainerWidth={setContainerWidth}
+          setContainerHeight={setContainerHeight}
         />
 
         {isActive && (
@@ -428,6 +436,10 @@ InnerImageZoom.propTypes = {
   loaderSize: PropTypes.number,
   overrideLoaderstyle: PropTypes.object,
   overrideLoadingContainerStyle: PropTypes.object,
+  setContainerWidth: PropTypes.func,
+  setContainerHeight: PropTypes.func,
+  containerHeight: PropTypes.number,
+  containerWidth: PropTypes.number,
 };
 
 InnerImageZoom.defaultProps = {
@@ -435,6 +447,8 @@ InnerImageZoom.defaultProps = {
   loaderSize: 30,
   overrideLoaderstyle: {},
   overrideLoadingContainerStyle: {},
+  setContainerWidth: () => {},
+  setContainerHeight: () => {},
 };
 
 export default InnerImageZoom;

@@ -2,8 +2,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Sentry from "react-activity/dist/Sentry";
-import "react-activity/dist/Sentry.css";
+import Sentry from "react-activity/dist/Sentry"; // import "react-activity/dist/Sentry.css";
 
 var Image = function Image(_ref) {
   var src = _ref.src,

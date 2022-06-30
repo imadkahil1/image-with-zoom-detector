@@ -16,32 +16,31 @@ const Image = ({
   overrideLoaderstyle,
   overrideLoadingContainerStyle,
   loaderColor,
+  setContainerWidth,
+  setContainerHeight,
+  containerHeight,
+  containerWidth,
+  loaderSize,
 }) => {
   const createSpacer = width && height && hasSpacer;
 
   const ref = useRef(null);
 
-  const [heightt, setHeightt] = useState(0);
-  const [widthh, setWidth] = useState(0);
-
   const getListSize = () => {
-    const newWidth = ref.current.clientWidth;
-    setWidth(newWidth);
+    const newWidth = ref?.current?.clientWidth;
+    setContainerWidth(newWidth);
 
-    const newHeight = ref.current.clientHeight;
-    setHeightt(newHeight);
+    const newHeight = ref?.current?.clientHeight;
+    setContainerHeight(newHeight);
   };
 
   useEffect(() => {
     getListSize();
-  }, [ref.current]);
+  }, [ref?.current]);
 
   useEffect(() => {
     window.addEventListener("resize", getListSize);
   }, []);
-
-  console.log("height", heightt);
-  console.log("width", widthh);
 
   return (
     <div
@@ -66,11 +65,11 @@ const Image = ({
             >
               <Sentry
                 color={loaderColor}
-                size={heightt / 16}
+                size={loaderSize}
                 style={{
                   ...styles.loader,
-                  top: heightt / 2.25,
-                  left: widthh / 2.25,
+                  top: containerHeight / 2.25,
+                  left: containerWidth / 2.25,
                   ...overrideLoaderstyle,
                 }}
               />
@@ -104,11 +103,11 @@ const Image = ({
             >
               <Sentry
                 color={loaderColor}
-                size={heightt / 16}
+                size={loaderSize}
                 style={{
                   ...styles.loader,
-                  top: heightt / 2.25,
-                  left: widthh / 2.25,
+                  top: containerHeight / 2.25,
+                  left: containerWidth / 2.25,
                   ...overrideLoaderstyle,
                 }}
               />
@@ -169,6 +168,11 @@ Image.propTypes = {
   overrideLoaderstyle: PropTypes.object,
   overrideLoadingContainerStyle: PropTypes.object,
   loaderColor: PropTypes.string,
+  setContainerWidth: PropTypes.func,
+  setContainerHeight: PropTypes.func,
+  containerHeight: PropTypes.number,
+  containerWidth: PropTypes.number,
+  loaderSize: PropTypes.number,
 };
 
 export default Image;
