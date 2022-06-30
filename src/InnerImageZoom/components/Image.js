@@ -36,6 +36,10 @@ const Image = ({
 
   useEffect(() => {
     getListSize();
+    return () => {
+      setContainerHeight();
+      setContainerWidth();
+    };
   }, [ref?.current]);
 
   useEffect(() => {

@@ -49,7 +49,7 @@ var Image = function Image(_ref) {
     return /*#__PURE__*/React.createElement(Fragment, {
       key: i
     }, source.srcSet && /*#__PURE__*/React.createElement("source", source));
-  }), !isLoading && /*#__PURE__*/React.createElement("div", {
+  }), isLoading && /*#__PURE__*/React.createElement("div", {
     style: _extends({}, styles.loaderContainer, overrideLoadingContainerStyle)
   }, /*#__PURE__*/React.createElement(Sentry, {
     color: loaderColor,
@@ -66,7 +66,7 @@ var Image = function Image(_ref) {
     src: src,
     width: width,
     height: height
-  }))) : /*#__PURE__*/React.createElement(React.Fragment, null, !isLoading && /*#__PURE__*/React.createElement("div", {
+  }))) : /*#__PURE__*/React.createElement(React.Fragment, null, isLoading && /*#__PURE__*/React.createElement("div", {
     style: _extends({}, styles.loaderContainer, overrideLoadingContainerStyle)
   }, /*#__PURE__*/React.createElement(Sentry, {
     color: loaderColor,
