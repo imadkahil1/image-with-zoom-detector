@@ -6,7 +6,8 @@ import "../../src/InnerImageZoom/styles.css";
 const Demo = () => {
   const [containerHeight, setContainerHeight] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
-
+  console.log(containerHeight);
+  console.log(containerWidth);
   return (
     <div>
       <h1>react-inner-image-zoom Demo</h1>

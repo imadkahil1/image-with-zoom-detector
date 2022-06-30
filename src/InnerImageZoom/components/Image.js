@@ -1,7 +1,7 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Sentry from "react-activity/dist/Sentry";
-// import "react-activity/dist/Sentry.css";
+import "react-activity/dist/Sentry.css";
 
 const Image = ({
   src,
@@ -40,9 +40,9 @@ const Image = ({
 
   useEffect(() => {
     window.addEventListener("resize", getListSize);
-    return () => {
-      window.removeEventListener("resize", getListSize);
-    };
+    // return () => {
+    //   window.removeEventListener("resize", getListSize);
+    // };
   }, []);
 
   return (
