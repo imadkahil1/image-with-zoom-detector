@@ -43,6 +43,9 @@ var Image = function Image(_ref) {
   }, [ref === null || ref === void 0 ? void 0 : ref.current]);
   useEffect(function () {
     window.addEventListener("resize", getListSize);
+    return function () {
+      window.removeEventListener("resize", getListSize);
+    };
   }, []);
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,
