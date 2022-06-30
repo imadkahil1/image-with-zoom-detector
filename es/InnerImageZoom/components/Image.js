@@ -118,11 +118,6 @@ Image.propTypes = process.env.NODE_ENV !== "production" ? {
   isZoomed: PropTypes.bool,
   overrideLoaderstyle: PropTypes.object,
   overrideLoadingContainerStyle: PropTypes.object,
-  loaderColor: "rgba(0,0,0,1)"
+  loaderColor: PropTypes.string
 } : {};
-Image.defaultProps = {
-  loaderColor: "rgba(0,0,0,1)",
-  overrideLoaderstyle: {},
-  overrideLoadingContainerStyle: {}
-};
 export default Image;

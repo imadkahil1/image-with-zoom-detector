@@ -11,6 +11,7 @@ class Demo extends Component {
         <div style={{ marginBottom: "30px" }}>
           <h2>Pan Example</h2>
           <InnerImageZoom
+            loaderColor={"rgba(1,1,1,1)"}
             onZoomImageLoad={(e) => {
               console.log("onZoomImageLoad", e);
             }}

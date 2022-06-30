@@ -1,6 +1,7 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Sentry from "react-activity/dist/Sentry";
+import "react-activity/dist/Sentry.css";
 
 const Image = ({
   src,
@@ -39,6 +40,9 @@ const Image = ({
     window.addEventListener("resize", getListSize);
   }, []);
 
+  console.log("height", heightt);
+  console.log("width", widthh);
+
   return (
     <div
       ref={ref}
@@ -53,7 +57,7 @@ const Image = ({
               </Fragment>
             );
           })}
-          {isLoading && (
+          {!isLoading && (
             <div
               style={{
                 ...styles.loaderContainer,
@@ -91,7 +95,7 @@ const Image = ({
         </picture>
       ) : (
         <>
-          {isLoading && (
+          {!isLoading && (
             <div
               style={{
                 ...styles.loaderContainer,
